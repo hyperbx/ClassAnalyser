@@ -73,7 +73,7 @@ namespace ClassAnalyser.Analysis.RTTI.Types
 
                 Directory.CreateDirectory(dir);
 
-                File.WriteAllText(path, "#pragma once\n\n" + @class.ToHeader());
+                File.WriteAllText(path, @class.ToHeader());
 
                 if (!in_isExportBaseClasses)
                     return;

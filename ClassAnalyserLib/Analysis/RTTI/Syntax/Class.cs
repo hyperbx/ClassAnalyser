@@ -1,4 +1,5 @@
 ﻿using ClassAnalyser.Analysis.RTTI.Types;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace ClassAnalyser.Analysis.RTTI.Syntax
@@ -200,7 +201,17 @@ namespace ClassAnalyser.Analysis.RTTI.Syntax
             if (HasNamespaces)
                 result += "}\n";
 
-            return result;
+            if (HasBaseClasses)
+            {
+                var sb = new StringBuilder();
+
+                foreach (var @base in BaseClasses)
+                    sb.AppendLine($"#include <{string.Join('\\', @base.Namespaces)}\\{@base.Name}.h>");
+
+                result = $"{sb}\n{result}";
+            }
+
+            return "#pragma once\n\n" + result;
         }
 
         public override string ToString()
