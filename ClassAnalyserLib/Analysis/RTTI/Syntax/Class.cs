@@ -141,6 +141,11 @@ namespace ClassAnalyser.Analysis.RTTI.Syntax
             return result;
         }
 
+        public string GetFullName()
+        {
+            return $"{string.Join("::", Namespaces)}::{Name}";
+        }
+
         public string GetHierarchyInfo()
         {
             var result = new StringBuilder();
@@ -206,7 +211,7 @@ namespace ClassAnalyser.Analysis.RTTI.Syntax
 
                 for (int i = 0; i < BaseClasses.Count; i++)
                 {
-                    var baseClassName = BaseClasses[i].Name;
+                    var baseClassName = BaseClasses[i].GetFullName();
 
                     // Remove namespaces from class name if we're in the same namespace.
                     if (baseClassName.StartsWith(namespaces))
@@ -255,7 +260,7 @@ namespace ClassAnalyser.Analysis.RTTI.Syntax
 
         public override string ToString()
         {
-            var result = $"{string.Join("::", Namespaces)}::{Name}";
+            var result = GetFullName();
 
             if (IsBaseClass)
                 return BaseClassDescriptor.ToString();
