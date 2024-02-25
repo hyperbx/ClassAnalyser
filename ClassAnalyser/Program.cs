@@ -48,7 +48,7 @@ namespace ClassAnalyser
         {
             Welcome();
 
-            if (!TryParseProcessID(AnsiConsole.Ask<string>("Process ID or name:"), out var out_processID))
+            if (!TryParseProcessID(AnsiConsole.Ask<string>("Process name or ID:"), out var out_processID))
                 return PromptProcessID();
 
             return out_processID;

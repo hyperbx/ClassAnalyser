@@ -99,21 +99,7 @@ namespace ClassAnalyser.Analysis.RTTI.Types
             result.AppendLine($"  {typeDesc}");
             result.AppendLine($"    {hierarchy}");
             result.AppendLine($"      {typeDesc.GetName()}::`RTTI Base Class Array'");
-
-            var @class = ToClassSyntax();
-
-            void RecurseBaseClasses(Class in_class, string in_indentation = "        ")
-            {
-                foreach (var @base in in_class.BaseClasses)
-                {
-                    result.AppendLine($"{in_indentation}{@base}");
-
-                    if (@base.HasBaseClasses)
-                        RecurseBaseClasses(@base, in_indentation + "  ");
-                }
-            }
-
-            RecurseBaseClasses(@class);
+            result.AppendLine($"        {ToClassSyntax().GetHierarchyInfo().Replace("\n", "\n        ").Trim()}");
 
             return result.ToString();
         }
